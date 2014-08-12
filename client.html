@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var conn = new WebSocket("ws://localhost:5000");
+
+        conn.onopen = function(evt) {
+          console.log("Connection open. Sending message...");
+          conn.send("New Client Connected!");
+        };
+
+        conn.onmessage = function(evt) {
+          var formatted_data = "<p>"+evt.data+"</p>";
+          $(".messages").append(formatted_data);
+        };
+
+        $('#message').on('keypress', function(e) {
+          var key = e.which;
+          if(key == 13) { // the enter key code
+            conn.send($(this).val());
+            $(this).val("");
+          }
+        });
+
+        conn.onclose = function(evt) {
+          console.log("Connection closed.");
+        };
+
+        conn.onerror = function(err) {
+          alert(err.name + " => " + err.message);
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div>
+      Hello
+    </div>
+    <div class="messages">
+      Messages will be appended here
+      <p id="messages">
+        hey!!
+      </p>
+    </div>
+    <div>
+      <form name="input_messages">
+        <textarea id="message"></textarea>
+      </form>
+    </div>
+  </body>
+</html>

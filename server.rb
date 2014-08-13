@@ -15,7 +15,7 @@ EM.run {
 
     ws.onmessage { |msg|
       connections.each do |conn|
-        conn.send "Pong: #{msg}"
+        conn.send msg
       end
     }
     ws.onclose {

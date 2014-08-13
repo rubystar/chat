@@ -1,13 +1,16 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     em-websocket (0.4.0)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.5.3)
     eventmachine (1.0.3)
     http_parser.rb (0.5.3)
+    rack (1.5.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   em-websocket
+  rack

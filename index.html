@@ -5,11 +5,12 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+        var user = prompt("hey, please enter your name");
         var conn = new WebSocket("ws://localhost:5000");
 
         conn.onopen = function(evt) {
           console.log("Connection open. Sending message...");
-          conn.send("New Client Connected!");
+          conn.send(user+": Connected!");
         };
 
         conn.onmessage = function(evt) {
@@ -20,7 +21,8 @@
         $('#message').on('keypress', function(e) {
           var key = e.which;
           if(key == 13) { // the enter key code
-            conn.send($(this).val());
+            var msg = user+": "+$(this).val();
+            conn.send(msg);
             $(this).val("");
           }
         });
